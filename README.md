@@ -1,5 +1,5 @@
 
-# 🚀 LogM_OAuth - Code du Jour
+# 🚀 LogM_OAuth
 
 Bienvenue dans l'application "Code du Jour" ! Cette application génère un code unique chaque jour et permet aux utilisateurs de le vérifier en l'envoyant.
 
