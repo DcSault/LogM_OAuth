@@ -16,7 +16,7 @@ Bienvenue dans l'application "Code du Jour" ! Cette application génère un code
 - Génération d'un code unique chaque jour 📅
 - Visualisation du code à l'aide d'une interface utilisateur 🖥
 - Restrictions d'accès basées sur l'adresse IP 🛡
-- Intégration avec une API GitHub pour la récupération de données 🌐
+- Intégration avec API GitHub pour la récupération de données 🌐
 - Authentification API sécurisée 🔐
 - API pour la récupération des données utilisateur 📋
 
