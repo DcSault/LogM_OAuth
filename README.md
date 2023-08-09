@@ -37,7 +37,7 @@ Configurez vos variables d'environnement en créant un fichier .env avec les cl�
 Démarrez l'application:
 
 ```
-node server
+node server.js
 ```
 
 ## 🚀 Utilisation
