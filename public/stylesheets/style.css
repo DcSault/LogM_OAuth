@@ -1,0 +1,41 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #f3f1fe, #e7e6fd);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card:active {
+    transform: translateY(-5px);
+}
+
+.code {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+}
