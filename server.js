@@ -16,6 +16,7 @@ const { GITHUB_TOKEN, REPO_OWNER, REPO_NAME, FILE_PATH } = process.env;
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.set('trust proxy', true);
 
 function generateDailyCode() {
     const today = new Date().toISOString().slice(0,10); 
@@ -97,6 +98,6 @@ async function testFetchJsonFromRepo() {
 // Appel de la fonction de test
 testFetchJsonFromRepo();
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
