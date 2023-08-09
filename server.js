@@ -36,7 +36,7 @@ console.log(`Code du jour: ${DAILY_CODE}`);
 app.get('/', (req, res, next) => {
     console.log('Requête reçue pour /code');
     const ipAddress = req.ip;
-    const allowedIps = ["127.0.0.1", "::1"];
+    const allowedIps = ["82.66.104.22", "::1"];
     if (allowedIps.includes(ipAddress)) {
         console.log(`IP autorisée : ${ipAddress}`);
         res.render('code', { code: DAILY_CODE });
@@ -57,7 +57,7 @@ async function fetchJsonFromRepo(token, repoOwner, repoName, filePath) {
     const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
     const response = await axios.get(url, config);
     console.log('Données récupérées depuis GitHub');
-    return response.data;
+//return response.data;
 }
 
 app.post('/verify', async (req, res, next) => {
