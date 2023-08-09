@@ -80,6 +80,7 @@ app.post('/verify', async (req, res, next) => {
     }
 });
 
+
 app.use((err, req, res, next) => {
     console.error(`Erreur: ${err.message}`);
     if (!err.statusCode) err.statusCode = 500;
