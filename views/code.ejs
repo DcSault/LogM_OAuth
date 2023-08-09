@@ -6,8 +6,10 @@
 </head>
 <body>
     <div class="card" onclick="copyToClipboard('<%= code %>')">
-        <h1>Code du jour:</h1>
-        <div class="code"><%= code %></div>
+        <h1>Code du jour :</h1>
+        <div class="code-container">
+            <div class="code"><%= code %></div>
+        </div>
     </div>
     <script>
         function copyToClipboard(text) {
