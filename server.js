@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('trust proxy', true);
+app.use(express.static('public'));
 
 function generateDailyCode() {
     const today = new Date().toISOString().slice(0,10); 
