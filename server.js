@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const axios = require('axios');
 
 const app = express();
-const PORT = 3000;
+const PORT = 443;
 
 // Configuration
 dotenv.config({ path: 'token.env' });
