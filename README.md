@@ -1,7 +1,7 @@
 
 # 🚀 LogM_OAuth
 
-Bienvenue dans l'application "Code du Jour" ! Cette application génère un code unique chaque jour et permet aux utilisateurs de le vérifier en l'envoyant.
+Bienvenue dans l'application "LogM_OAuth" ! Cette application génère un code unique chaque jour et mes a disposition une API pour la récupération des données.
 
 ## 📖 Sommaire
 
@@ -18,7 +18,7 @@ Bienvenue dans l'application "Code du Jour" ! Cette application génère un code
 - Restrictions d'accès basées sur l'adresse IP 🛡
 - Intégration avec API GitHub pour la récupération de données 🌐
 - Authentification API sécurisée 🔐
-- API pour la récupération des données utilisateur 📋
+- API pour la récupération des données 📋
 
 ## 🔧 Installation
 
