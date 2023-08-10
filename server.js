@@ -22,15 +22,12 @@ function saveMasterKeyToFile() {
     return masterKey;
 }
 
-// Function pour générer une clé maître
 function generateMasterKey() {
     return crypto.randomBytes(32).toString('hex');
 }
 
-// À chaque redémarrage, nous générons et sauvegardons une nouvelle clé maître.
 saveMasterKeyToFile();
 
-// Maintenant, chargeons la clé maître que nous venons de sauvegarder
 dotenv.config({ path: 'key.env' });
 const { MASTER_KEY } = process.env;
 
@@ -40,43 +37,41 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('trust proxy', true);
 app.use(express.static('public'));
 
-let DAILY_CODE = generateDailyCode();
+const codeLength = 6;
 
 function generateDailyCode() {
-    const today = new Date().toISOString().slice(0,10); 
-    const seed = parseInt(today.split('-').join('')); 
-    const codeLength = 6;
-    
     const hash = crypto.createHash('sha256');
-    hash.update(today + MASTER_KEY);
-    const hashedValue = parseInt(hash.digest('hex').slice(0, 8), 16);
+    hash.update(MASTER_KEY);
+    const hashedValue = hash.digest('hex');
 
     let code = '';
     for (let i = 0; i < codeLength; i++) {
-        code += Math.floor((Math.random() + hashedValue * (i + 1)) % 10).toString();
+        const position = parseInt(hashedValue.slice(i * 2, i * 2 + 2), 16);
+        code += position % 10;
     }
     return code;
 }
 
-function generateOnStartup() {
+let DAILY_CODE = generateDailyCode();
+console.log(`Code du jour : ${DAILY_CODE}`);
+
+function updateDailyCode() {
     DAILY_CODE = generateDailyCode();
-    setTimeout(generateAtMidnight, timeUntilMidnight());
+    console.log(`Code du jour : ${DAILY_CODE}`);
 }
 
-function timeUntilMidnight() {
+function scheduleDailyCodeUpdate() {
     const now = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0);
-    return midnight - now;
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    const timeUntilMidnight = midnight - now;
+
+    setTimeout(() => {
+        updateDailyCode();
+        setInterval(updateDailyCode, 24 * 60 * 60 * 1000);
+    }, timeUntilMidnight);
 }
 
-function generateAtMidnight() {
-    DAILY_CODE = generateDailyCode();
-    setTimeout(generateAtMidnight, 24 * 60 * 60 * 1000);
-}
-
-generateOnStartup();
-console.log(`Code du jour: ${DAILY_CODE}`);
+scheduleDailyCodeUpdate();
 
 dotenv.config({ path: 'ip.env' });
 app.get('/', (req, res, next) => {
