@@ -10,9 +10,11 @@
         <div class="code-container" onclick="copyToClipboard('<%= code %>')">
             <div class="code"><%= code %></div>
         </div>
-        <!-- Ajout de la section pour le temps restant -->
         <div class="time-left">
-            Temps restant avant le prochain renouvellement : <%= hoursLeft %> heures et <%= minutesLeft %> minutes.
+            <span class="label">Temps restant avant le prochain renouvellement :</span> 
+            <span class="time">
+                <%= hoursLeft %> heures et <%= minutesLeft %> minutes.
+            </span>
         </div>
     </div>
     <script>

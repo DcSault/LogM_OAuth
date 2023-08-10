@@ -10,9 +10,22 @@ body {
 }
 
 .time-left {
+    font-family: 'Segoe UI', Arial, sans-serif; /* La typographie standard de Microsoft */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     margin-top: 15px;
     font-size: 16px;
     color: #555;
+}
+
+.label {
+    font-weight: 600; /* Augmenter un peu le poids pour une meilleure distinction */
+    margin-right: 10px; /* Une petite marge pour l'espace entre le label et le temps */
+}
+
+.time {
+    color: #0078D4; /* Une couleur bleue typique de Microsoft */
 }
 
 .card {
