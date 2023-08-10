@@ -10,11 +10,6 @@
         <div class="code-container" onclick="copyToClipboard('<%= code %>')">
             <div class="code"><%= code %></div>
         </div>
-        <div class="time-left">
-            <span class="label">Temps restant avant le prochain renouvellement :</span> 
-            <span class="time"><%= hoursLeft %> heures et <%= minutesLeft %> minutes.</span>
-        </div>        
-    </div>
     <script>
         function copyToClipboard(text) {
             const textarea = document.createElement('textarea');
