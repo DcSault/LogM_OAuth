@@ -1,7 +1,7 @@
 
 # 🚀 LogM_OAuth
 
-Bienvenue dans l'application "LogM_OAuth" ! Cette application génère un code unique chaque jour et mes a disposition une API pour la récupération des données.
+Bienvenue dans l'application "LogM_OAuth" ! Cette application génère un code unique chaque jour et met à disposition une API pour la récupération des données.
 
 ## 📖 Sommaire
 
