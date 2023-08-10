@@ -1,3 +1,5 @@
+const fs = require('fs');
+const crypto = require('crypto');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -13,31 +15,74 @@ console.log('Configuration chargée depuis token.env');
 
 const { GITHUB_TOKEN, REPO_OWNER, REPO_NAME, FILE_PATH } = process.env;
 
+function saveMasterKeyToFile() {
+    const masterKey = generateMasterKey();
+    fs.writeFileSync('key.env', `MASTER_KEY=${masterKey}`);
+    console.log('Clé maître sauvegardée dans key.env');
+    return masterKey;
+}
+
+// Function pour générer une clé maître
+function generateMasterKey() {
+    return crypto.randomBytes(32).toString('hex');
+}
+
+// À chaque redémarrage, nous générons et sauvegardons une nouvelle clé maître.
+saveMasterKeyToFile();
+
+// Maintenant, chargeons la clé maître que nous venons de sauvegarder
+dotenv.config({ path: 'key.env' });
+const { MASTER_KEY } = process.env;
+
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('trust proxy', true);
 app.use(express.static('public'));
 
+let DAILY_CODE = generateDailyCode();
+
 function generateDailyCode() {
     const today = new Date().toISOString().slice(0,10); 
     const seed = parseInt(today.split('-').join('')); 
     const codeLength = 6;
+    
+    const hash = crypto.createHash('sha256');
+    hash.update(today + MASTER_KEY);
+    const hashedValue = parseInt(hash.digest('hex').slice(0, 8), 16);
 
     let code = '';
     for (let i = 0; i < codeLength; i++) {
-        code += Math.floor((Math.random() + seed * (i + 1)) % 10).toString();
+        code += Math.floor((Math.random() + hashedValue * (i + 1)) % 10).toString();
     }
     return code;
 }
 
-const DAILY_CODE = generateDailyCode();
+function generateOnStartup() {
+    DAILY_CODE = generateDailyCode();
+    setTimeout(generateAtMidnight, timeUntilMidnight());
+}
+
+function timeUntilMidnight() {
+    const now = new Date();
+    const midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    return midnight - now;
+}
+
+function generateAtMidnight() {
+    DAILY_CODE = generateDailyCode();
+    setTimeout(generateAtMidnight, 24 * 60 * 60 * 1000);
+}
+
+generateOnStartup();
 console.log(`Code du jour: ${DAILY_CODE}`);
 
+dotenv.config({ path: 'ip.env' });
 app.get('/', (req, res, next) => {
     console.log('Requête reçue pour /code');
     const ipAddress = req.ip;
-    const allowedIps = ["82.66.104.22", "::1"];
+    const allowedIps = (process.env.ALLOWED_IPS || "").split(',');
     if (allowedIps.includes(ipAddress)) {
         console.log(`IP autorisée : ${ipAddress}`);
         res.render('code', { code: DAILY_CODE });
