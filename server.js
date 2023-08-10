@@ -80,7 +80,19 @@ app.get('/', (req, res, next) => {
     const allowedIps = (process.env.ALLOWED_IPS || "").split(',');
     if (allowedIps.includes(ipAddress)) {
         console.log(`IP autorisée : ${ipAddress}`);
-        res.render('code', { code: DAILY_CODE });
+        
+        const now = new Date();
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+        const timeUntilMidnight = midnight - now;
+        
+        const hoursLeft = Math.floor(timeUntilMidnight / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((timeUntilMidnight % (1000 * 60 * 60)) / (1000 * 60));
+        
+        res.render('code', { 
+            code: DAILY_CODE,
+            hoursLeft: hoursLeft,
+            minutesLeft: minutesLeft
+        });
     } else {
         console.log(`Accès interdit depuis l'IP: ${ipAddress}`);
         next(new Error(`Accès interdit depuis l'IP: ${ipAddress}`));

@@ -5,10 +5,14 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
-    <div class="card" onclick="copyToClipboard('<%= code %>')">
+    <div class="card">
         <h1>Code du jour :</h1>
-        <div class="code-container">
+        <div class="code-container" onclick="copyToClipboard('<%= code %>')">
             <div class="code"><%= code %></div>
+        </div>
+        <!-- Ajout de la section pour le temps restant -->
+        <div class="time-left">
+            Temps restant avant le prochain renouvellement : <%= hoursLeft %> heures et <%= minutesLeft %> minutes.
         </div>
     </div>
     <script>
