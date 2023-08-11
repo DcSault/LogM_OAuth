@@ -37,10 +37,11 @@ Configurez vos variables d'environnement en créant un fichier .env avec les cl�
 
 Démarrez l'application via api GitHub ou Redis:
 
+# Redis API 📈
 ```
 node server_redis.js
 ```
-###
+# GitHub API
 ```
 node server_github.js
 ```
