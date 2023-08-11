@@ -159,15 +159,6 @@ app.use((err, req, res, next) => {
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
 });
-// Test fetchJsonFromRepo
-async function testFetchJsonFromRepo() {
-    try {
-        const jsonData = await fetchJsonFromRepo(GITHUB_TOKEN, REPO_OWNER, REPO_NAME, FILE_PATH);
-        console.log('JSON récupéré depuis GitHub:', jsonData);
-    } catch (error) {
-        console.error('Erreur lors de la récupération du fichier JSON depuis GitHub:', error.message);
-    }
-}
 
 // Appel de la fonction de test
 testFetchJsonFromRepo();
