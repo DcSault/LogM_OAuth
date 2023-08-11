@@ -80,14 +80,14 @@ app.get('/', (req, res, next) => {
     const allowedIps = (process.env.ALLOWED_IPS || "").split(',');
     if (allowedIps.includes(ipAddress)) {
         console.log(`IP autorisée : ${ipAddress}`);
-        
+
         const now = new Date();
         const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
         const timeUntilMidnight = midnight - now;
-        
+
         const hoursLeft = Math.floor(timeUntilMidnight / (1000 * 60 * 60));
         const minutesLeft = Math.floor((timeUntilMidnight % (1000 * 60 * 60)) / (1000 * 60));
-        
+
         res.render('code', { 
             code: DAILY_CODE,
             hoursLeft: hoursLeft,
@@ -139,6 +139,18 @@ app.use((err, req, res, next) => {
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
 });
+// Test fetchJsonFromRepo
+async function testFetchJsonFromRepo() {
+    try {
+        const jsonData = await fetchJsonFromRepo(GITHUB_TOKEN, REPO_OWNER, REPO_NAME, FILE_PATH);
+        console.log('JSON récupéré depuis GitHub:', jsonData);
+    } catch (error) {
+        console.error('Erreur lors de la récupération du fichier JSON depuis GitHub:', error.message);
+    }
+}
+
+// Appel de la fonction de test
+testFetchJsonFromRepo();
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
