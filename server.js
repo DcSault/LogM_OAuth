@@ -27,13 +27,6 @@ client.on('error', function(err) {
     console.error('Erreur Redis:', err);
 });
 
-
-// Configuration
-dotenv.config({ path: 'token.env' });
-console.log('Configuration chargée depuis token.env');
-
-const { GITHUB_TOKEN, REPO_OWNER, REPO_NAME, FILE_PATH } = process.env;
-
 function saveMasterKeyToFile() {
     const masterKey = generateMasterKey();
     fs.writeFileSync('key.env', `MASTER_KEY=${masterKey}`);
@@ -118,20 +111,6 @@ app.get('/', (req, res, next) => {
     }
 });
 
-async function fetchJsonFromRepo(token, repoOwner, repoName, filePath) {
-    console.log('Tentative de récupération du fichier JSON depuis GitHub');
-    const config = {
-        headers: {
-            'Authorization': `token ${token}`,
-            'Accept': 'application/vnd.github.v3.raw'
-        }
-    };
-    const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
-    const response = await axios.get(url, config);
-    console.log('Données récupérées depuis GitHub');
-    return response.data;
-}
-
 app.post('/verify', async (req, res, next) => {
     console.log('Requête reçue pour vérification de code');
     const codeSent = req.body.code;
@@ -139,7 +118,6 @@ app.post('/verify', async (req, res, next) => {
         console.log('Code validé');
 
         try {
-            // Remplacez la récupération des données depuis GitHub par une récupération depuis Redis
             const jsonData = await client.get('errors');
             res.json({ valid: true, data: jsonData ? JSON.parse(jsonData) : {} });
         } catch (error) {
@@ -153,15 +131,12 @@ app.post('/verify', async (req, res, next) => {
     }
 });
 
-
 app.use((err, req, res, next) => {
     console.error(`Erreur: ${err.message}`);
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
 });
 
-// Appel de la fonction de test
-testFetchJsonFromRepo();
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
