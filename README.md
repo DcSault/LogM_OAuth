@@ -35,10 +35,14 @@ npm install
 ```
 Configurez vos variables d'environnement en créant un fichier .env avec les clés nécessaires.
 
-Démarrez l'application:
+Démarrez l'application via api GitHub ou Redis:
 
 ```
-node server.js
+node server_redis.js
+```
+
+```
+node server_github.js
 ```
 
 ## 🚀 Utilisation
