@@ -39,11 +39,11 @@ Démarrez l'application via api GitHub ou Redis:
 
 ### Redis API 📈
 ```
-node server_redis.js
+node LogM_OAuth_Redis.js
 ```
 ### GitHub API
 ```
-node server_github.js
+node LogM_OAuth_Github.js
 ```
 
 ## 🚀 Utilisation
