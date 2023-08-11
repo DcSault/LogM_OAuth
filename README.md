@@ -17,6 +17,7 @@ Bienvenue dans l'application "LogM_OAuth" ! Cette application génère un code u
 - Visualisation du code à l'aide d'une interface utilisateur 🖥
 - Restrictions d'accès basées sur l'adresse IP 🛡
 - Intégration avec API GitHub pour la récupération de données 🌐
+- Intégration avec API Redis pour la récupération de données 📦
 - Authentification API sécurisée 🔐
 - API pour la récupération des données 📋
 
