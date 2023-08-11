@@ -5,28 +5,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
 const axios = require('axios');
-const Redis = require('ioredis');
 
 const app = express();
 const PORT = 443;
-
-
-// ======== Configuration Redis ========
-require('dotenv').config({ path: './redis.env' });
-const client = new Redis({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD
-});
-
-client.on('connect', function() {
-    console.log('Connecté à Redis');
-});
-
-client.on('error', function(err) {
-    console.error('Erreur Redis:', err);
-});
-
 
 // Configuration
 dotenv.config({ path: 'token.env' });
@@ -139,11 +120,10 @@ app.post('/verify', async (req, res, next) => {
         console.log('Code validé');
 
         try {
-            // Remplacez la récupération des données depuis GitHub par une récupération depuis Redis
-            const jsonData = await client.get('errors');
-            res.json({ valid: true, data: jsonData ? JSON.parse(jsonData) : {} });
+            const jsonData = await fetchJsonFromRepo(GITHUB_TOKEN, REPO_OWNER, REPO_NAME, FILE_PATH);
+            res.json({ valid: true, data: jsonData });
         } catch (error) {
-            console.error('Erreur lors de la récupération du fichier JSON depuis Redis:', error.message);
+            console.error('Erreur lors de la récupération du fichier JSON depuis GitHub:', error.message);
             next(error);
         }
 
