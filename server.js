@@ -12,10 +12,10 @@ const PORT = 443;
 
 // ======== Load Environment Variables ========
 dotenv.config({ path: './redis.env' });
+saveMasterKeyToFile();
 dotenv.config({ path: 'key.env' });
-dotenv.config({ path: 'ip.env' });
-
 const { MASTER_KEY, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
+dotenv.config({ path: 'ip.env' });
 
 // ======== Configuration Redis ========
 const client = new Redis({
