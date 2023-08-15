@@ -17,6 +17,7 @@ Bienvenue dans l'application "LogM_OAuth" ! Cette application génère un code u
 - Visualisation du code à l'aide d'une interface utilisateur 🖥
 - Restrictions d'accès basées sur l'adresse IP 🛡
 - Intégration avec API GitHub pour la récupération de données 🌐
+- Intégration avec API Redis pour la récupération de données 📦
 - Authentification API sécurisée 🔐
 - API pour la récupération des données 📋
 
@@ -34,10 +35,15 @@ npm install
 ```
 Configurez vos variables d'environnement en créant un fichier .env avec les clés nécessaires.
 
-Démarrez l'application:
+Démarrez l'application via api GitHub ou Redis:
 
+### Redis API 📈
 ```
-node server.js
+node LogM_OAuth_Redis.js
+```
+### GitHub API
+```
+node LogM_OAuth_Github.js
 ```
 
 ## 🚀 Utilisation
