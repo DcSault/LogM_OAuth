@@ -41,7 +41,6 @@ function saveMasterKeyToFile() {
 function generateMasterKey() {
     return crypto.randomBytes(32).toString('hex');
 }
-saveMasterKeyToFile();
 
 // ======== Express Configuration ========
 app.use(bodyParser.json());
